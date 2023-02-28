@@ -19,6 +19,7 @@ with open('data/prediccionOnline/le.pkl', 'rb') as f:
     labelEncoder = pickle.load(f)
 
 vectores = {}
+#
 
 # Conectamos con el servidor de Kafka
 client = pykafka.KafkaClient(hosts="localhost:9093")
