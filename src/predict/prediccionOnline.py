@@ -11,11 +11,11 @@ from collections import namedtuple
 ########################################################
 
 # Cargamos los modelos y el labelEncoder
-with open('data/prediccionOnline/travelModel.pkl', 'rb') as f:
+with open('APSELogisticSimulator-main1/data/prediccionOnline/travelModel.pkl', 'rb') as f:
     modelo_tiempo_viaje = pickle.load(f)
-with open('data/prediccionOnline/deliveryModel.pkl', 'rb') as f:
+with open('APSELogisticSimulator-main1/data/prediccionOnline/deliveryModel.pkl', 'rb') as f:
     modelo_tiempo_entrega = pickle.load(f)
-with open('data/prediccionOnline/le.pkl', 'rb') as f:
+with open('APSELogisticSimulator-main1/data/prediccionOnline/le.pkl', 'rb') as f:
     labelEncoder = pickle.load(f)
 
 vectores = {}
@@ -86,7 +86,7 @@ def escribirEnKafka(prediccion):
     # Conectamos con el topic de predicciones
     topic = client.topics['predictions']
     # Creamos el mensaje, que debería incluir el tipo de prediccion
-    mensaje = "Predicción" + "---"+ str(prediccion)
+    mensaje = "Predicción" + "---"+ str(prediccion[0])
     # Enviamos el mensaje
     with topic.get_sync_producer() as producer:
         producer.produce(mensaje.encode('utf-8'))
@@ -109,7 +109,7 @@ for evento in consumer:
 
     # mensaje_evento, en formato json,  como un evento
     evento = json.loads(evento.value.decode('utf-8'))
-
+    print(evento)
     # Si no habíamos recibido ningún evento con este simulationId y truck_id, obtenemos su plan desde la base de datos
     if not (evento["simulationId"],evento["truckId"]) in vectores:
         obtenerPlan(evento)
