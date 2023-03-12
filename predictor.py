@@ -5,7 +5,7 @@ import json
 
 app = Flask(__name__)
 
-#
+
 # Load the trained scikit-learn models stored in pickle format
 with open('C:/Users/anny0/Downloads/GitAPSE/APSELogisticSimulator-main1/src/models/travelModel.pkl', 'rb') as f:
     modelo_tiempo_viaje = pickle.load(f)
