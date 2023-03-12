@@ -38,7 +38,7 @@ def predict_delivery():
     data_time = np.array(request.get_json()['time'])
     data_truckid = np.array(request.get_json()['truckId'])
     
-    prediccion = modelo_tiempo_entrega.predict(np.array(data_time,data_truckid))
+    prediccion = modelo_tiempo_entrega.predict(np.array([data_time,data_truckid]))
     # Return the prediction as a JSON response  
     return jsonify({'prediction': prediccion[0]})
 
