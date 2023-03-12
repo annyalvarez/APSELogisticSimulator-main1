@@ -23,12 +23,11 @@ with open('C:/Users/anny0/Downloads/GitAPSE/APSELogisticSimulator-main1/src/mode
 def predict_eta():
     data = np.array(request.get_json()['time'])
     
-    return (format(data))
+    prediccion = modelo_tiempo_viaje.predict(data) 
 
-
-    #prediccion = modelo_tiempo_viaje.predict(...)[0]
+    
     # Return the prediction as a JSON response
-    #return jsonify({'prediction': prediccion[0]})
+    return jsonify({'prediction': prediccion[0]})
     
 
 # Endpoint for load delivery endpoint.
@@ -36,10 +35,12 @@ def predict_eta():
 @app.route('/predict_delivery', methods=['POST','GET'])
 
 def predict_delivery():
-    return str('hoa')
-     
+    data_time = np.array(request.get_json()['time'])
+    data_truckid = np.array(request.get_json()['truckId'])
+    
+    prediccion = modelo_tiempo_entrega.predict(np.array(data_time,data_truckid))
     # Return the prediction as a JSON response  
-    #return jsonify({'prediction': prediccion[0]})
+    return jsonify({'prediction': prediccion[0]})
 
 
 
