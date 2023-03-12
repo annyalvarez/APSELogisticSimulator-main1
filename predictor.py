@@ -5,6 +5,7 @@ import json
 
 app = Flask(__name__)
 
+
 # Load the trained scikit-learn models stored in pickle format
 with open('C:/Users/anny0/Downloads/GitAPSE/APSELogisticSimulator-main1/src/models/travelModel.pkl', 'rb') as f:
     modelo_tiempo_viaje = pickle.load(f)
@@ -38,7 +39,7 @@ def predict_delivery():
     data_time = np.array(request.get_json()['time'])
     data_truckid = np.array(request.get_json()['truckId'])
     
-    prediccion = modelo_tiempo_entrega.predict(np.array(data_time,data_truckid))
+    prediccion = modelo_tiempo_entrega.predict(np.array([data_time,data_truckid]))
     # Return the prediction as a JSON response  
     return jsonify({'prediction': prediccion[0]})
 
